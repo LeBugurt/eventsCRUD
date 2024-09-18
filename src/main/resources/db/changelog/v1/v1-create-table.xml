@@ -1,0 +1,89 @@
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="v1-1" author="Shentsev">
+        <createTable tableName="event">
+
+            <column name="id" type="bigint">
+                <constraints primaryKey="true"/>
+            </column>
+
+            <column name = "name" type = "varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name = "place" type = "varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name = "comment" type = "varchar(1000)">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name = "email" type = "varchar(128)">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name = "applicant" type = "varchar(128)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name = "startDate" type = "TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name = "endDate" type = "TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name = "isFullDay" type="bool">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name = "isOnlineEvent" type="bool">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name = "isOutlookEvent" type="bool">
+                <constraints nullable="false"/>
+            </column>
+
+        </createTable>
+    </changeSet>
+
+    <changeSet id="v1-2" author="Shentsev">
+        <renameColumn tableName="event"
+                      oldColumnName="isOutlookEvent"
+                      newColumnName="is_outlook_event"
+                      columnDataType="boolean"/>
+
+        <renameColumn tableName="event"
+                      oldColumnName="isOnlineEvent"
+                      newColumnName="is_online_event"
+                      columnDataType="boolean"/>
+
+        <renameColumn tableName="event"
+                      oldColumnName="isFullDay"
+                      newColumnName="is_full_day"
+                      columnDataType="boolean"/>
+
+        <renameColumn tableName="event"
+                      oldColumnName="startDate"
+                      newColumnName="start_date"
+                      columnDataType="timestamp"/>
+
+        <renameColumn tableName="event"
+                      oldColumnName="endDate"
+                      newColumnName="end_date"
+                      columnDataType="timestamp"/>
+    </changeSet>
+
+    <changeSet id="v1-4" author="Shentsev">
+        <createSequence sequenceName="event_id_seq"/>
+
+        <addDefaultValue tableName="event" columnName="id" defaultValueSequenceNext="event_id_seq"/>
+    </changeSet>
+
+</databaseChangeLog>
